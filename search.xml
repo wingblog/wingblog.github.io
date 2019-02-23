@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>ZZCMS任意删除漏洞“(CVE-2019-8411)</title>
+      <link href="/2019/02/19/ZZCMS%E4%BB%BB%E6%84%8F%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E%E2%80%9C-CVE-2019-8411/"/>
+      <url>/2019/02/19/ZZCMS%E4%BB%BB%E6%84%8F%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E%E2%80%9C-CVE-2019-8411/</url>
+      
+        <content type="html"><![CDATA[<h2 id="zzcms-任意删除文件漏洞-CVE-2019-8411-分析"><a href="#zzcms-任意删除文件漏洞-CVE-2019-8411-分析" class="headerlink" title="zzcms 任意删除文件漏洞(CVE-2019-8411) 分析"></a>zzcms 任意删除文件漏洞(CVE-2019-8411) 分析</h2><h3 id="Payload：action-del＆filename-1-php"><a href="#Payload：action-del＆filename-1-php" class="headerlink" title="Payload：action = del＆filename = .. / 1.php"></a>Payload：action = del＆filename = .. / 1.php</h3><h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><h4 id="这个漏洞产生的很大原因是开发者没有按照正确的安全开发，对敏感操作没有进行认证。"><a href="#这个漏洞产生的很大原因是开发者没有按照正确的安全开发，对敏感操作没有进行认证。" class="headerlink" title="这个漏洞产生的很大原因是开发者没有按照正确的安全开发，对敏感操作没有进行认证。"></a>这个漏洞产生的很大原因是开发者没有按照正确的安全开发，对敏感操作没有进行认证。</h4><h5 id="打开admin-dl-data-php，发现只要把del赋值action参数，然后添加需要删除的文件，就可以删除了，没有进行任何的认证。"><a href="#打开admin-dl-data-php，发现只要把del赋值action参数，然后添加需要删除的文件，就可以删除了，没有进行任何的认证。" class="headerlink" title="打开admin/dl_data.php，发现只要把del赋值action参数，然后添加需要删除的文件，就可以删除了，没有进行任何的认证。"></a>打开admin/dl_data.php，发现只要把del赋值action参数，然后添加需要删除的文件，就可以删除了，没有进行任何的认证。</h5><p><img src="https://p3.ssl.qhimg.com/t01c727f1967ca7eba9.png" alt="![](https://p1.ssl.qhimg.com/t01bf0deb989f4d9684.png)"></p><h5 id="从下面的图片可以看出，只要action参数等于’del’时，就能进随意的删除了，无需什么认证这个操作是极其危险。"><a href="#从下面的图片可以看出，只要action参数等于’del’时，就能进随意的删除了，无需什么认证这个操作是极其危险。" class="headerlink" title="从下面的图片可以看出，只要action参数等于’del’时，就能进随意的删除了，无需什么认证这个操作是极其危险。"></a>从下面的图片可以看出，只要action参数等于’del’时，就能进随意的删除了，无需什么认证这个操作是极其危险。</h5><p><img src="https://p2.ssl.qhimg.com/t016f20f810d9885d7c.png" alt=""><br><img src="https://p3.ssl.qhimg.com/t01d7111a5d2d627cd6.png" alt=""></p><h5 id="进行简单的添加认证后，这个Payload-就失效了，当然这个认证只是我个人的随意添加的，更多细节需要开发者团队自己增加。"><a href="#进行简单的添加认证后，这个Payload-就失效了，当然这个认证只是我个人的随意添加的，更多细节需要开发者团队自己增加。" class="headerlink" title="进行简单的添加认证后，这个Payload 就失效了，当然这个认证只是我个人的随意添加的，更多细节需要开发者团队自己增加。"></a>进行简单的添加认证后，这个Payload 就失效了，当然这个认证只是我个人的随意添加的，更多细节需要开发者团队自己增加。</h5><p><img src="https://p4.ssl.qhimg.com/t0199eed13579d71097.png" alt=""><br><img src="https://p5.ssl.qhimg.com/t0176f7639cdf27d15b.png" alt=""></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我们真的懂什么是黑客吗？</title>
+      <link href="/2019/02/19/%E6%88%91%E4%BB%AC%E7%9C%9F%E7%9A%84%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E9%BB%91%E5%AE%A2%E5%90%97%EF%BC%9F/"/>
+      <url>/2019/02/19/%E6%88%91%E4%BB%AC%E7%9C%9F%E7%9A%84%E6%87%82%E4%BB%80%E4%B9%88%E6%98%AF%E9%BB%91%E5%AE%A2%E5%90%97%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="黑客是什么？"><a href="#黑客是什么？" class="headerlink" title="黑客是什么？ "></a><center>黑客是什么？ </center></h2><p>&emsp;&emsp; 黑客是什么？是映像中坐在电脑面前快速疯狂的敲几下键盘，就能黑了一台又一台的主机，甚至像出入自家院子一样随意的进入深网（有时“深网”这一术语被错误地用于指代暗网，其实不然前者指的是存在于黑暗网络、覆盖网络上的万维网内容，只能用特殊软件、特殊授权、或对计算机做特殊设置才能访问。暗网构成了深网的一小部分，深网网络没有被网络搜索引擎索引，后者指的是搜索引擎未索引（不能搜索到）的万维网内容）。<br><br>&emsp;&emsp;黑客</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>windows渗透之powershell提权</title>
       <link href="/2019/02/18/windows%E6%B8%97%E9%80%8F%E4%B9%8Bpowershell%E6%8F%90%E6%9D%83/"/>
       <url>/2019/02/18/windows%E6%B8%97%E9%80%8F%E4%B9%8Bpowershell%E6%8F%90%E6%9D%83/</url>
