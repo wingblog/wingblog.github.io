@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>wpscan更新后出现错误</title>
+      <link href="/2019/03/03/wpscan%E6%9B%B4%E6%96%B0%E5%90%8E%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/"/>
+      <url>/2019/03/03/wpscan%E6%9B%B4%E6%96%B0%E5%90%8E%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/</url>
+      
+        <content type="html"><![CDATA[<p>#####错误信息”1: from /usr/lib/ruby/2.5.0/rubygems/specification.rb:1458:in <code>each&#39; /usr/lib/ruby/2.5.0/rubygems/specification.rb:1466:in</code>block in activate_dependencies’: can’t satisfy ‘public_suffix (~&gt; 3.0.0)’, already activated ‘public_suffix-2.0.5’ (gem::loaderror)”</p><p>######解决办法顺序执行下面的命令<br><code>apt-get install gem</code><br><code>apt remove wpscan</code><br><code>apt-get autoremove</code><br><code>apt-get install wpscan</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> wpscan错误 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>手动给Android应用注入Payload</title>
       <link href="/2019/02/25/%E6%89%8B%E5%8A%A8%E7%BB%99Android%E5%BA%94%E7%94%A8%E6%B3%A8%E5%85%A5Payload/"/>
       <url>/2019/02/25/%E6%89%8B%E5%8A%A8%E7%BB%99Android%E5%BA%94%E7%94%A8%E6%B3%A8%E5%85%A5Payload/</url>
