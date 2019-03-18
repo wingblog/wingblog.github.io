@@ -54,32 +54,32 @@
             <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
+                    <span>主页</span>
                 </a>
             </li>
             <li class="active">
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
+                    <span>存档</span>
                 </a>
             </li>
             <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
+                    <span>关于</span>
                 </a>
             </li>
             
             <li>
                 <a id="search">
                     <i class="iconfont icon-sousuo1"></i>
-                    <span>SEARCH</span>
+                    <span>搜索</span>
                 </a>
             </li>
             
@@ -94,7 +94,7 @@
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
             <input id="search-input">
-            <span id="begin-search">search</span>
+            <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
 
@@ -110,7 +110,7 @@
         <!-- Main Content -->
         <div id="tag_cloud" class="tags">
     
-    <a href="#HackTheBox" title="HackTheBox" rel="1">HackTheBox</a>
+    <a href="#漏洞分析" title="漏洞分析" rel="2">漏洞分析</a>
     
     <a href="#imap" title="imap" rel="1">imap</a>
     
@@ -122,6 +122,8 @@
     
     <a href="#windows提权" title="windows提权" rel="1">windows提权</a>
     
+    <a href="#HackTheBox" title="HackTheBox" rel="1">HackTheBox</a>
+    
     <a href="#Metasploit" title="Metasploit" rel="1">Metasploit</a>
     
 </div>
@@ -130,8 +132,8 @@
 
 
 <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="HackTheBox">
-                    <span class="tag-text">HackTheBox</span>
+                <span class="fa fa-tag listing-seperator" id="漏洞分析">
+                    <span class="tag-text">漏洞分析</span>
                 </span>
     
     <!-- <li class="listing-item">
@@ -139,9 +141,23 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/03/06/HackTheBox-Chaos/">
+        <a href="/2019/02/19/ZZCMS任意删除漏洞“-CVE-2019-8411/">
             <h2 class="post-title">
-                HackTheBox Chaos
+                ZZCMS任意删除漏洞“(CVE-2019-8411)
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/03/18/zzzphp-V1-6-1-远程代码执行漏洞分析/">
+            <h2 class="post-title">
+                zzzphp V1.6.1 远程代码执行漏洞分析
             </h2>
             
         </a>
@@ -247,6 +263,27 @@
         <a href="/2019/02/18/windows渗透之powershell提权/">
             <h2 class="post-title">
                 windows渗透之powershell提权
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="HackTheBox">
+                    <span class="tag-text">HackTheBox</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/03/06/HackTheBox-Chaos/">
+            <h2 class="post-title">
+                HackTheBox Chaos
             </h2>
             
         </a>
