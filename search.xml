@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>mysql 常用命令</title>
+      <link href="/2019/04/14/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+      <url>/2019/04/14/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<hr><p>desc table_name; //查表的字段信息（不包含字段内容）<br>show columns from table_name;   //同上<br>show create table table_name;  //查表字段信息和字符集信息<br>select <em> from table_name;  //查表所有内容<br>select </em> from table_name where id=？;  //查指定行<br>select field_name from table_name; //查指定列，field意为字段<br>select * from table_name where field_name like “%???%”;  //根据字段内容的近似值查找指定行<br>select field_name1,field_name2 from table_name; //查指定字段的多个列<br>update table_name set field_name=”abc” where id=?;  // 修改指定字段的内容<br>show databases; //查看有哪些数据库<br>use database_name; //进入数据库<br>create database_name; //创建数据库<br>show tables; //查看数据库内有哪些表：<br>mysql -u user -p //登陆mysql</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTB-Teacher靶机渗透</title>
+      <link href="/2019/04/14/HTB-Teacher%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/"/>
+      <url>/2019/04/14/HTB-Teacher%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="HTB-Teacher靶机渗透"><a href="#HTB-Teacher靶机渗透" class="headerlink" title="#HTB-Teacher靶机渗透"></a>#HTB-Teacher靶机渗透</h2><h4 id="amp-nbsp-amp-nbsp这段时间一直没有去打靶机，主要原因还是因为我自己的“痴心妄想”。这半个月一直想去某src平台去挖漏洞，还妄想冲榜。结果自己的技术只能捡捡大佬们看不上的low漏洞。这次被大佬们按在地上狠狠的摩擦、蹂虐之后，让我明白了我的技术是有多菜。只能灰溜溜的跑回来继续好好的学习。"><a href="#amp-nbsp-amp-nbsp这段时间一直没有去打靶机，主要原因还是因为我自己的“痴心妄想”。这半个月一直想去某src平台去挖漏洞，还妄想冲榜。结果自己的技术只能捡捡大佬们看不上的low漏洞。这次被大佬们按在地上狠狠的摩擦、蹂虐之后，让我明白了我的技术是有多菜。只能灰溜溜的跑回来继续好好的学习。" class="headerlink" title="&amp;nbsp&amp;nbsp这段时间一直没有去打靶机，主要原因还是因为我自己的“痴心妄想”。这半个月一直想去某src平台去挖漏洞，还妄想冲榜。结果自己的技术只能捡捡大佬们看不上的low漏洞。这次被大佬们按在地上狠狠的摩擦、蹂虐之后，让我明白了我的技术是有多菜。只能灰溜溜的跑回来继续好好的学习。"></a>&amp;nbsp&amp;nbsp这段时间一直没有去打靶机，主要原因还是因为我自己的“痴心妄想”。这半个月一直想去某src平台去挖漏洞，还妄想冲榜。结果自己的技术只能捡捡大佬们看不上的low漏洞。这次被大佬们按在地上狠狠的摩擦、蹂虐之后，让我明白了我的技术是有多菜。只能灰溜溜的跑回来继续好好的学习。</h4><hr><p><img src="https://p0.ssl.qhimg.com/t01ecc2fa96e0890645.jpg" alt=""></p><p>####靶机IP=&gt; 10.10.10.153</p><p>####kali IP=&gt; 10.10.10.17.94</p><p>####1.我们先惯例来一波nmap 扫描<br>    nmap -sS 10.10.10.153<br><img src="https://p2.ssl.qhimg.com/t010d2b2f47f7c4a8e1.png" alt=""></p><p>#####目标之开放了一个80端口，我们访问看下有什么线索。<br><img src="https://p5.ssl.qhimg.com/t0108e66234f05199d6.png" alt=""></p><p>#####2.我们现在可以可以访问目标的80端口，那么我们来找下有什么线索。在某个页面发现了一个奇怪的现象，本来是4*4的布局变成了3444的布局。那么我们使用开发者模式看下有什么线索，这个里面有一个未加载的图片，估计里面应该有线索。那么我们把它下载下来。<br><img src="https://p3.ssl.qhimg.com/t01cecae35ad4d876cc.png" alt=""></p><p>#####OK，现在图片下载下来了，那么我们使用cat 看下它是否有什么线索。<br><img src="https://p0.ssl.qhimg.com/t01cecae35ad4d876cc.png" alt=""></p><p>#####现在我们获得一个不完整的密码和一个用户名，那么我们现在首要任务是把这个密码丢失的最后一位找出来，我们使用下面的python脚本跑出所有的字符串。<br>    for i in “abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ)!@#$%^&amp;*(“:<br>     &amp;nbsp&amp;nbsp print ‘Th4C00lTheacha’ +i</p><p>####3.这么多的密码里面只有一个是正确的，这时候我们就需要认证这些密码了。使用dirb 把目标的目录都跑出来。<br><img src="https://p4.ssl.qhimg.com/t01dc499e1b567939f3.png" alt=""></p><p>#####在尝试了这些目录之后，发现moodle目录里面有一个登录页面，这个登录页面估计可以使用我们刚刚获得的用户和密码来进行登录，现在我们要使用burpsuite进行爆破处理。<br><img src="https://p0.ssl.qhimg.com/t01937569b358b319a6.png" alt=""></p><p>#####OK，现在我们获得了正确的密码，Th4C00lTheacha#。</p><p>####4.登录进去之后发现这是moodle框架，现在我们需要找下这个moodle有什么可利用的漏洞存在，在搜索引擎的帮助下找到了一个moodle命令执行漏洞。<br><a href="https://blog.ripstech.com/2018/moodle-remote-code-execution/" target="_blank" rel="noopener">https://blog.ripstech.com/2018/moodle-remote-code-execution/</a><br><img src="https://p4.ssl.qhimg.com/t01630a79d6d69afbb5.png" alt=""></p><p>####5.现在我们要开始利用漏洞开始getshell。点击ALG,然后点击头像下面的齿轮，然后点击Turn editing on。<br><img src="https://p4.ssl.qhimg.com/t01aa7128d0ac13461c.png" alt=""></p><p>#####现在我们顺便点击一个测试。<br><img src="https://p4.ssl.qhimg.com/t01821cd57cc302228f.png" alt=""></p><p>#####点击进去之后，再点击Edit quit,进去编辑之后点击Add ,然后添加一个计算问题。<br><img src="https://p0.ssl.qhimg.com/t0169e603be15fef7ee.png" alt=""></p><p>#####然后顺便填写，然后在Answer 这里要写poc，写完poc后选择Grade到100%。/<em>{x}{a</em>/<code>$_GET[0]</code>/<em>(1)//}{a</em>/<code>$_GET[0]</code>/<em>({x})//}</em>/<br><img src="https://p5.ssl.qhimg.com/t01baf3e761863ef3d0.png" alt=""></p><p>#####点击save 保存，接下来点击Next page，然后在url上添加执行命令。<br><img src="https://p3.ssl.qhimg.com/t0187e2c743373542c3.png" alt=""></p><p>####6.现在我们使用了getshell进去服务器了，但是我们只是www权限。现在我们要开始提权，现在在config.php文件中找到数据库的连接配置。<br><img src="https://p1.ssl.qhimg.com/t0149156799e7393d05.png" alt=""></p><p>######然后在pdl_user 表找到user和password<br><img src="https://p3.ssl.qhimg.com/t010ba3859e212265ac.png" alt=""></p><p>#####password中只有7a860966115182402ed06375cf0a22af能解开，那么我们使用su登录。只有giovanni账号登录其他的都不行![Alt text]<br><img src="https://p4.ssl.qhimg.com/t01219c707dd6bd39ad.png" alt=""></p><p>#####然后在/home/giovanni/下找到user.txt，找到user.txt之后我们需要get root。</p><p>#####在 /usr/bin/里找到一个backup.sh.<br><img src="https://p0.ssl.qhimg.com/t012623acdc5f8419be.png" alt=""></p><p>######这个脚本，它压缩courses里面所有的东西，然后再把它解压到tmp，同时它是root权限创建的，但是普通用户可以使用。那么我们就利用这个来get root。先把tmp里面的courses删除，然后我们自己创建一个courses目录，然后创建root目录的软连接 ln -s /root courses 。然后使用/usr/bin/backup.sh，现在我们可以查看root.txt了。<br><img src="https://p1.ssl.qhimg.com/t012d7c1982d0cd14ba.png" alt=""></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HTB Frolic靶机渗透</title>
       <link href="/2019/03/25/%C2%96%C2%96HTB-Frolic%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/"/>
       <url>/2019/03/25/%C2%96%C2%96HTB-Frolic%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/</url>
